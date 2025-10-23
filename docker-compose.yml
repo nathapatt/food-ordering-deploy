@@ -34,7 +34,7 @@ services:
       - ADMIN_URL=${ADMIN_URL}
       - BACKEND_URL=${BACKEND_URL}
     ports:
-      - '${PORT}:3000'
+      - '3000:3000'
     depends_on:
       - db
     networks:
@@ -46,10 +46,11 @@ services:
     container_name: food_ordering_customer_frontend
     environment:
       - NGINX_PROXY=${NGINX_PROXY}
+      - VITE_NGINX_PROXY=${VITE_NGINX_PROXY}
     ports:
-      - '${PORT}:80'
+      - '${PORT_CUSTOMER}:80'
     networks:
-      - food_ordering_project_food_ordering_network
+      - food_ordering_network
     restart: unless-stopped
 
   staff_frontend:
@@ -57,11 +58,12 @@ services:
     container_name: food_ordering_staff_frontend
     environment:
       - NGINX_PROXY=${NGINX_PROXY}
+      - VITE_NGINX_PROXY=${VITE_NGINX_PROXY}
       - CUSTOMER_FRONTEND_URL=${CUSTOMER_FRONTEND_URL}
     ports:
-      - '${PORT}:80'
+      - '${PORT_STAFF}:80'
     networks:
-      - food_ordering_project_food_ordering_network
+      - food_ordering_network
     restart: unless-stopped
 
 volumes:
