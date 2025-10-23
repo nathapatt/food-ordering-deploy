@@ -1,0 +1,70 @@
+name: food_ordering_project
+services:
+  db:
+    image: postgres:17-alpine
+    container_name: food_ordering_db
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_APP_USER=${POSTGRES_APP_USER}
+      - POSTGRES_APP_PASSWORD=${POSTGRES_APP_PASSWORD}
+    ports:
+      - '5432:5432'
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./_entrypoint:/docker-entrypoint-initdb.d
+    networks:
+      - food_ordering_network
+    restart: unless-stopped
+
+  backend:
+    image: nathapatt/ordering-food-backend
+    container_name: food_ordering_backend
+    environment:
+      - DATABASE_URL=postgresql://${POSTGRES_APP_USER}:${POSTGRES_APP_PASSWORD}@db:5432/${POSTGRES_DB}
+      - JWT_SECRET=${JWT_SECRET}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - GOOGLE_CALLBACK_URL=${GOOGLE_CALLBACK_URL}
+      - FRONTEND_URL=${FRONTEND_URL}
+      - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
+      - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
+      - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
+      - ADMIN_URL=${ADMIN_URL}
+      - BACKEND_URL=${BACKEND_URL}
+    ports:
+      - '${PORT}:3000'
+    depends_on:
+      - db
+    networks:
+      - food_ordering_network
+    restart: unless-stopped
+
+  customer_frontend:
+    image: nathapatt/ordering-food-customer
+    container_name: food_ordering_customer_frontend
+    environment:
+      - NGINX_PROXY=${NGINX_PROXY}
+    ports:
+      - '${PORT}:80'
+    networks:
+      - food_ordering_project_food_ordering_network
+    restart: unless-stopped
+
+  staff_frontend:
+    image: nathapatt/ordering-food-staff
+    container_name: food_ordering_staff_frontend
+    environment:
+      - NGINX_PROXY=${NGINX_PROXY}
+      - CUSTOMER_FRONTEND_URL=${CUSTOMER_FRONTEND_URL}
+    ports:
+      - '${PORT}:80'
+    networks:
+      - food_ordering_project_food_ordering_network
+    restart: unless-stopped
+
+volumes:
+  db_data:
+networks:
+  food_ordering_network:
