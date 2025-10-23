@@ -59,7 +59,6 @@ services:
     environment:
       - NGINX_PROXY=${NGINX_PROXY}
       - VITE_NGINX_PROXY=${VITE_NGINX_PROXY}
-      - CUSTOMER_FRONTEND_URL=${CUSTOMER_FRONTEND_URL}
     ports:
       - '${PORT_STAFF}:80'
     networks:
