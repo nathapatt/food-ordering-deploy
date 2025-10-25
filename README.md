@@ -4,10 +4,9 @@ A comprehensive online food ordering system for restaurants, featuring a custome
 
 ## Team Members
 
-- Member 1
-- Member 2
-- Member 3
-- Member 4
+- Kankorn  Chirachaihirun 650610746
+- Jiraphat Ponrat 650610752
+- Nathapat Nerangsi 650610758
 
 ## Technology Stack
 
