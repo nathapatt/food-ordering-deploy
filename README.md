@@ -92,22 +92,7 @@ Use this admin account to:
 - 10 tables (Table 1-10) with QR Code tokens
 - Admin account for staff system access
 
-## Development
-
-### Project Structure
-```
-.
-├── customer-ordering-frontend/     # Customer frontend application
-├── admin-ordering-frontend/        # Staff frontend application
-│   └── staff-fullstack-website/
-├── customer-ordering-backend/      # Backend API
-│   └── food_ordering_backend/
-└── food-ordering-deploy/          # Docker deployment
-    ├── docker-compose.yml
-    └── README.md
-```
-
-### Useful Commands
+### Development Useful Commands
 
 ```bash
 # View service logs
