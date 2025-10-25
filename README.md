@@ -42,7 +42,12 @@ cd food-ordering-deploy
 ```bash
 cp .env.example .env
 # Edit the .env file according to your needs
+# IMPORTANT: Configure Google OAuth and Cloudinary credentials before starting the application
 ```
+
+**Required Environment Variables:**
+- `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` - For Google OAuth authentication
+- `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET` - For image upload functionality
 
 3. Start the system
 ```bash
@@ -76,6 +81,12 @@ npm run seed
 After running the seed, you will have an admin account for accessing the staff system:
 - **Email**: admin@restaurant.com
 - **Password**: admin123
+
+Use this admin account to:
+- Access the staff frontend system
+- Configure restaurant settings
+- Add menu items through the settings page
+- Manage tables and orders
 
 ### Seeded Data
 - 10 tables (Table 1-10) with QR Code tokens
