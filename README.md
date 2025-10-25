@@ -1,4 +1,4 @@
-# Food Ordering System
+# Food Ordering System - Group 12
 
 A comprehensive online food ordering system for restaurants, featuring a customer web application for placing orders and a staff management system for handling orders, tables, and menu items.
 
