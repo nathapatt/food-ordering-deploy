@@ -1,6 +1,17 @@
 # Food Ordering System - Group 12
 
-A comprehensive online food ordering system for restaurants, featuring a customer web application for placing orders and a staff management system for handling orders, tables, and menu items.
+A comprehensive online food ordering system for restaurants with two separate frontend applications:
+
+1. **Customer Frontend**: Web application for customers to browse menus, place orders, and track order status through QR code scanning or direct table access
+2. **Staff Dashboard**: Management system for restaurant staff to handle orders, manage tables, configure menu items, and monitor restaurant operations
+
+### Key Features
+- **QR Code Integration**: Customers scan QR codes at tables to access ordering interface
+- **Alternative Access**: Direct table access via `/admin/qr` route for easy testing without QR scanning
+- **Real-time Updates**: Live order status updates using WebSocket connections
+- **Order Management**: Complete order lifecycle from placement to completion
+- **Menu Management**: Staff can add, edit, and manage menu items with image uploads
+- **Table Management**: Track table availability and customer sessions
 
 ## Team Members
 
@@ -61,9 +72,30 @@ docker-compose ps
 
 ### System Access
 - **Customer Frontend**: http://localhost:[PORT_CUSTOMER]
+  - Main customer interface for ordering food
+  - QR code scanning interface
+  - **Development Route**: `/admin/qr` - Direct access to table selection for testing without QR scanning
 - **Staff Frontend**: http://localhost:[PORT_STAFF]
+  - Staff dashboard for order management
+  - Menu item configuration
+  - Table management and QR code generation
 - **Backend API**: http://localhost:3000
 - **Database**: localhost:5432
+
+### How to Use the System
+
+#### For Customers:
+1. **QR Code Method**: Scan the QR code at your table to start ordering
+2. **Development Method**: Visit `http://localhost:[PORT_CUSTOMER]/admin/qr` and click on any table button to simulate table access
+3. Browse the menu and add items to your cart
+4. Place your order and track its status in real-time
+
+#### For Restaurant Staff:
+1. Login to the staff dashboard using the admin account
+2. Manage incoming orders and update their status
+3. Add new menu items with descriptions and images
+4. Generate and print QR codes for tables
+5. Monitor table occupancy and customer sessions
 
 ## Database Seeding
 
