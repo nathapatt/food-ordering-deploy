@@ -1,144 +1,144 @@
-# Food Ordering System - Group 12
+# Food Ordering System
 
-A comprehensive online food ordering system for restaurants with two separate frontend applications:
+**Food Ordering System** คือแอปพลิเคชันสำหรับช่วยจัดการระบบสั่งอาหารในร้านอาหาร ที่ลูกค้าสามารถสแกน QR Code ที่โต๊ะเพื่อสั่งอาหาร และพนักงานสามารถจัดการคำสั่งซื้อ เมนูอาหาร และโต๊ะได้แบบเรียลไทม์
 
-1. **Customer Frontend**: Web application for customers to browse menus, place orders, and track order status through QR code scanning or direct table access
-2. **Staff Dashboard**: Management system for restaurant staff to handle orders, manage tables, configure menu items, and monitor restaurant operations
+ระบบนี้ประกอบด้วยแอปพลิเคชัน Frontend แยกกัน 2 ตัว คือ ระบบสำหรับลูกค้าและระบบจัดการสำหรับพนักงาน พร้อมด้วย Backend API ที่รองรับการทำงานแบบเรียลไทม์
 
-### Key Features
-- **QR Code Integration**: Customers scan QR codes at tables to access ordering interface
-- **Alternative Access**: Direct table access via `/admin/qr` route for easy testing without QR scanning
-- **Real-time Updates**: Live order status updates using WebSocket connections
-- **Order Management**: Complete order lifecycle from placement to completion
-- **Menu Management**: Staff can add, edit, and manage menu items with image uploads
-- **Table Management**: Track table availability and customer sessions
+- Customer repository: https://github.com/nathapatt/customer-fullstack-website.git
+- Staff repository: https://github.com/apwjir/staff-fullstack-website.git
+- Backend repository: https://github.com/4ank0rn/food_ordering_backend.git
 
-## Team Members
+---
 
-- Kankorn  Chirachaihirun 650610746
-- Jiraphat Ponrat 650610752
-- Nathapat Nerangsi 650610758
+## คุณสมบัติของระบบ (Key Features)
+
+- **ระบบ QR Code**: ลูกค้าสแกน QR Code ที่โต๊ะเพื่อเข้าถึงระบบสั่งอาหาร
+- **การสั่งอาหารแบบเรียลไทม์**: อัปเดตสถานะคำสั่งซื้อแบบทันทีผ่าน WebSocket
+- **จัดการเมนู**: พนักงานสามารถเพิ่ม แก้ไข จัดการเมนูอาหารพร้อมอัปโหลดรูปภาพ
+- **จัดการโต๊ะ**: ติดตามสถานะโต๊ะและสร้าง QR Code สำหรับแต่ละโต๊ะ
+- **ระบบพนักงาน**: เข้าสู่ระบบด้วย Google OAuth และจัดการคำสั่งซื้อ
+- **การอัปโหลดรูปภาพ**: ใช้ Cloudinary สำหรับจัดเก็บรูปภาพเมนู
+
+---
+
+## สมาชิกผู้พัฒนา
+
+| ชื่อ                     | รหัสนักศึกษา |
+| ------------------------ | ------------ |
+| กันต์กร จิราชัยหิรัญ      | 650610746    |
+| จิรภัทร ปอนรัตน์          | 650610752    |
+| ณัฐภัทร เนื้อรังษี         | 650610758    |
+
+---
 
 ## Technology Stack
 
 ### Frontend
-- **Customer Frontend**: React 19, TypeScript, Vite, TailwindCSS, React Router DOM, React Query, Socket.io Client, QR Code Generator
-- **Staff Frontend**: React 19, TypeScript, Vite, Ant Design, React Router DOM, Socket.io Client, Day.js
+
+| Tech                  | Description                                 |
+| --------------------- | ------------------------------------------- |
+| React 19              | Framework สำหรับ Web Application ฝั่งผู้ใช้ |
+| TypeScript            | ภาษาโปรแกรมที่เพิ่มระบบ Type ให้ JavaScript|
+| Vite                  | Build Tool และ Development Server          |
+| TailwindCSS           | ระบบตกแต่ง UI สำหรับลูกค้า                  |
+| Ant Design            | UI Library สำหรับพนักงาน                   |
+| React Query           | จัดการ State ของข้อมูล และ Data Fetching    |
+| Socket.io Client      | การเชื่อมต่อแบบเรียลไทม์                    |
 
 ### Backend
-- **API Server**: NestJS, TypeScript, Prisma ORM, PostgreSQL, JWT Authentication, Passport.js, Google OAuth, Socket.io, Cloudinary (image upload), bcryptjs
 
-### Database
-- **PostgreSQL 17** (Alpine Linux container)
+| Tech        | Description                         |
+| ----------- | ----------------------------------- |
+| NestJS      | Framework สำหรับ Node.js Backend    |
+| TypeScript  | ภาษาโปรแกรมที่เพิ่มระบบ Type       |
+| Prisma ORM  | ORM ใช้เชื่อมต่อและ query ฐานข้อมูล |
+| JWT         | ระบบยืนยันตัวตนด้วย JSON Web Token  |
+| Socket.io   | WebSocket สำหรับการอัปเดตแบบเรียลไทม์|
 
-### DevOps & Deployment
-- **Docker & Docker Compose** for containerization
-- **Nginx** for reverse proxy in frontend containers
+### Other Services
 
-## Development Setup
+| Tool           | Purpose                          |
+| -------------- | -------------------------------- |
+| PostgreSQL 17  | ฐานข้อมูลหลัก                    |
+| Cloudinary     | จัดเก็บและจัดการรูปภาพ           |
+| Google OAuth   | ระบบเข้าสู่ระบบผ่าน Google       |
+| Docker         | Containerization และ Deployment  |
 
-### Prerequisites
-- Docker and Docker Compose
-- Git
+---
 
-### Installation Steps
+## การเตรียมข้อมูลเริ่มต้น (Seed Data)
 
-1. Clone the project
-```bash
-git clone <repository-url>
-cd food-ordering-deploy
-```
+มีสคริปต์สำหรับสร้างข้อมูลเริ่มต้นที่จำเป็นสำหรับการทดสอบระบบ โดยจะสร้าง:
 
-2. Setup environment variables
-```bash
-cp .env.example .env
-# Edit the .env file according to your needs
-# IMPORTANT: Configure Google OAuth and Cloudinary credentials before starting the application
-```
+- **โต๊ะ 10 โต๊ะ** (โต๊ะ 1-10) พร้อม QR Code tokens
+- **บัญชี Admin** สำหรับเข้าใช้งานระบบพนักงาน
+  - Email: admin@restaurant.com
+  - Password: admin123
 
-**Required Environment Variables:**
-- `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` - For Google OAuth authentication
-- `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET` - For image upload functionality
+### ขั้นตอนการนำไปพัฒนาต่อ
 
-3. Start the system
-```bash
-docker-compose up -d
-```
+หลังจากที่โคลนโปรเจคไปแล้วสามารถพัฒนาต่อได้โดย step ดังนี้:
 
-4. Wait for containers to be ready
-```bash
-docker-compose ps
-```
+1. **ตั้งค่า Environment Variables**
+   ```bash
+   cp .env.example .env
+   # แก้ไขไฟล์ .env ตามความต้องการ
+   # สำคัญ: ตั้งค่า Google OAuth และ Cloudinary credentials ก่อนเริ่มใช้งาน
+   ```
 
-### System Access
-- **Customer Frontend**: http://localhost:[PORT_CUSTOMER]
-  - Main customer interface for ordering food
-  - QR code scanning interface
-  - **Development Route**: `/admin/qr` - Direct access to table selection for testing without QR scanning
-- **Staff Frontend**: http://localhost:[PORT_STAFF]
-  - Staff dashboard for order management
-  - Menu item configuration
-  - Table management and QR code generation
-- **Backend API**: http://localhost:3000
-- **Database**: localhost:5432
+   **Environment Variables ที่จำเป็น:**
+   - `GOOGLE_CLIENT_ID` และ `GOOGLE_CLIENT_SECRET` - สำหรับการยืนยันตัวตน Google OAuth
+   - `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET` - สำหรับการอัปโหลดรูปภาพ
 
-### How to Use the System
+2. **เริ่มระบบด้วย Docker**
+   ```bash
+   docker-compose up -d
+   ```
 
-#### For Customers:
-1. **QR Code Method**: Scan the QR code at your table to start ordering
-2. **Development Method**: Visit `http://localhost:[PORT_CUSTOMER]/admin/qr` and click on any table button to simulate table access
-3. Browse the menu and add items to your cart
-4. Place your order and track its status in real-time
+3. **Seed ข้อมูลเริ่มต้น**
+   ```bash
+   # เข้าไปใน backend container
+   docker exec -it food_ordering_backend bash
 
-#### For Restaurant Staff:
-1. Login to the staff dashboard using the admin account
-2. Manage incoming orders and update their status
-3. Add new menu items with descriptions and images
-4. Generate and print QR codes for tables
-5. Monitor table occupancy and customer sessions
+   # รันคำสั่ง seed ข้อมูล
+   npm run seed
+   ```
 
-## Database Seeding
+4. **เข้าถึงระบบ**
+   - **Customer Frontend**: http://localhost:[PORT_CUSTOMER]
+     - **Development Route**: `/admin/qr` - เข้าถึงการเลือกโต๊ะโดยตรงสำหรับการทดสอบ
+   - **Staff Frontend**: http://localhost:[PORT_STAFF]
+   - **Backend API**: http://localhost:3000
 
-After the system is running, execute the following commands to create initial data:
+### การใช้งานระบบ
 
-```bash
-# Enter the backend container
-docker exec -it food_ordering_backend bash
+#### สำหรับลูกค้า:
+1. **วิธี QR Code**: สแกน QR code ที่โต๊ะเพื่อเริ่มสั่งอาหาร
+2. **วิธีการพัฒนา**: เข้าไปที่ `/admin/qr` และคลิกปุ่มโต๊ะเพื่อจำลองการเข้าถึงโต๊ะ
+3. เรียกดูเมนูและเพิ่มรายการลงในตะกร้า
+4. สั่งอาหารและติดตามสถานะแบบเรียลไทม์
 
-# Run the seed command
-npm run seed
-```
+#### สำหรับพนักงาน:
+1. เข้าสู่ระบบด้วยบัญชี admin
+2. จัดการคำสั่งซื้อและอัปเดตสถานะ
+3. เพิ่มรายการเมนูใหม่พร้อมรูปภาพ
+4. สร้างและจัดการ QR codes สำหรับโต๊ะ
 
-### Admin Account
-After running the seed, you will have an admin account for accessing the staff system:
-- **Email**: admin@restaurant.com
-- **Password**: admin123
-
-Use this admin account to:
-- Access the staff frontend system
-- Configure restaurant settings
-- Add menu items through the settings page
-- Manage tables and orders
-
-### Seeded Data
-- 10 tables (Table 1-10) with QR Code tokens
-- Admin account for staff system access
-
-### Development Useful Commands
+### คำสั่งที่มีประโยชน์สำหรับการพัฒนา
 
 ```bash
-# View service logs
+# ดู service logs
 docker-compose logs -f [service_name]
 
-# Restart service
+# รีสตาร์ท service
 docker-compose restart [service_name]
 
-# Enter container
+# เข้าไปใน container
 docker exec -it [container_name] bash
 
-# Stop system
+# หยุดระบบ
 docker-compose down
 
-# Stop and remove volumes
+# หยุดและลบ volumes
 docker-compose down -v
 ```
