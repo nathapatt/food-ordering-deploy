@@ -123,22 +123,3 @@
 2. จัดการคำสั่งซื้อและอัปเดตสถานะ
 3. เพิ่มรายการเมนูใหม่พร้อมรูปภาพ
 4. สร้างและจัดการ QR codes สำหรับโต๊ะ
-
-### คำสั่งที่มีประโยชน์สำหรับการพัฒนา
-
-```bash
-# ดู service logs
-docker-compose logs -f [service_name]
-
-# รีสตาร์ท service
-docker-compose restart [service_name]
-
-# เข้าไปใน container
-docker exec -it [container_name] bash
-
-# หยุดระบบ
-docker-compose down
-
-# หยุดและลบ volumes
-docker-compose down -v
-```
