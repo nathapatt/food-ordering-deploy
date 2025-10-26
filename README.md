@@ -78,37 +78,77 @@
 ### ขั้นตอนการนำไปพัฒนาต่อ
 
 หลังจากที่โคลนโปรเจคไปแล้วสามารถพัฒนาต่อได้โดย step ดังนี้:
+ให้ set environment ของแต่ละ repo สำหรับการพัฒนาก่อนตาม .env.local
 
-1. **ตั้งค่า Environment Variables**
+**สำหรับการ Deploy ระบบทั้งหมด (แนะนำสำหรับการทดสอบ):**
+```bash
+# ตั้งค่า environment variables
+cp .env.local .env
+# แก้ไขไฟล์ .env ตามความต้องการ
+# สำคัญ: ตั้งค่า Google OAuth และ Cloudinary credentials ก่อนเริ่มใช้งาน
+
+# เริ่มระบบทั้งหมด
+docker-compose up -d
+
+# Seed ข้อมูลเริ่มต้น
+docker exec -it food_ordering_backend bash
+npm run seed
+```
+
+**Environment Variables ที่จำเป็น:**
+- `GOOGLE_CLIENT_ID` และ `GOOGLE_CLIENT_SECRET` - สำหรับการยืนยันตัวตน Google OAuth
+- `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET` - สำหรับการอัปโหลดรูปภาพ
+
+---
+
+**การพัฒนาแยกตามส่วน:**
+
+1. **การพัฒนาส่วน Backend**:
+
+   หากต้องการพัฒนาเฉพาะส่วน backend ทำได้โดยการรันเซ็ตอัพใน *food-ordering-deploy* เพื่อสร้าง database service
    ```bash
-   cp .env.example .env
-   # แก้ไขไฟล์ .env ตามความต้องการ
-   # สำคัญ: ตั้งค่า Google OAuth และ Cloudinary credentials ก่อนเริ่มใช้งาน
+   # เริ่มเฉพาะ database
+   docker-compose up -d db
    ```
 
-   **Environment Variables ที่จำเป็น:**
-   - `GOOGLE_CLIENT_ID` และ `GOOGLE_CLIENT_SECRET` - สำหรับการยืนยันตัวตน Google OAuth
-   - `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET` - สำหรับการอัปโหลดรูปภาพ
-
-2. **เริ่มระบบด้วย Docker**
+   จากนั้นไปที่ *customer-ordering-backend/food_ordering_backend* [รายละเอียด](https://github.com/4ank0rn/food_ordering_backend.git)
    ```bash
-   docker-compose up -d
+   cd customer-ordering-backend/food_ordering_backend
+   npm install
+   npm run start:dev
    ```
 
-3. **Seed ข้อมูลเริ่มต้น**
-   ```bash
-   # เข้าไปใน backend container
-   docker exec -it food_ordering_backend bash
+2. **การพัฒนาส่วน Customer Frontend**:
 
-   # รันคำสั่ง seed ข้อมูล
-   npm run seed
+   ให้รันในส่วนของ backend ขึ้นมาทั้งหมดก่อนโดยการรันที่ *food-ordering-deploy*
+   ```bash
+   docker-compose up -d db backend
    ```
 
-4. **เข้าถึงระบบ**
-   - **Customer Frontend**: http://localhost:[PORT_CUSTOMER]
-     - **Development Route**: `/admin/qr` - เข้าถึงการเลือกโต๊ะโดยตรงสำหรับการทดสอบ
-   - **Staff Frontend**: http://localhost:[PORT_STAFF]
-   - **Backend API**: http://localhost:3000
+   ที่ *customer-ordering-frontend* [รายละเอียด](https://github.com/nathapatt/customer-fullstack-website.git) ให้รัน
+   ```bash
+   npm install
+   npm run dev
+   ```
+
+3. **การพัฒนาส่วน Staff Frontend**:
+
+   ให้รันในส่วนของ backend ขึ้นมาทั้งหมดก่อนโดยการรันที่ *food-ordering-deploy*
+   ```bash
+   docker-compose up -d db backend
+   ```
+
+   ที่ *admin-ordering-frontend/staff-fullstack-website* [รายละเอียด](https://github.com/apwjir/staff-fullstack-website.git) ให้รัน
+   ```bash
+   npm install
+   npm run dev
+   ```
+
+### เข้าถึงระบบ
+- **Customer Frontend**: http://localhost:[PORT_CUSTOMER]
+  - **Development Route**: `/admin/qr` - เข้าถึงการเลือกโต๊ะโดยตรงสำหรับการทดสอบ
+- **Staff Frontend**: http://localhost:[PORT_STAFF]
+- **Backend API**: http://localhost:3000
 
 ### การใช้งานระบบ
 
